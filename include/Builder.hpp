@@ -13,10 +13,8 @@
 class Builder {
  public:
   Builder(std::string config, bool install, bool pack, int32_t timeout);
-
-  void Stop(async::cancellation_token &c);
-
   bool NewTask(std::string task);
+  void Timer();
 
 
  private:

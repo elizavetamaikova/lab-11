@@ -11,15 +11,9 @@ Builder::Builder(std::string config, bool install, bool pack, int32_t timeout)
     return;
   }
 
-  if (_timeout != -1) {
+  if (_timeout > 0) {
     auto timer = async::spawn([this] {
-      std::cout << "Timer started" << std::endl;
-      std::this_thread::sleep_for(std::chrono::seconds(_timeout));
-      if (_child.running()) {
-        std::cout << "Time is exceed."
-                  << std::endl << "Terminating" << std::endl;
-        _child.terminate();
-      }
+        Timer();
     });
   }
 
@@ -82,5 +76,14 @@ bool Builder::NewTask(std::string task) {
     return false;
   } else {
     return true;
+  }
+}
+void Builder::Timer() {
+  std::cout << "Timer started" << std::endl;
+  std::this_thread::sleep_for(std::chrono::seconds(_timeout));
+  if (_child.running()) {
+    std::cout << "Time is exceed."
+              << std::endl << "Terminating" << std::endl;
+    _child.terminate();
   }
 }

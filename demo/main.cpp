@@ -25,9 +25,8 @@ int main(int argc, char **argv) {
       ("config", value<std::string>()->default_value("Debug"))
       ("install", install_usage.c_str())
       ("pack", pack_usage.c_str())
-
-
       ("timeout", value<int32_t>()->default_value(-1));
+
   variables_map vm;
   try {
     parsed_options parsed = command_line_parser(argc, argv).options(desc).allow_unregistered().run();
